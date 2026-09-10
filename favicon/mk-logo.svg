@@ -1,0 +1,10 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+<defs>
+<linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'>
+<stop offset='0%' stop-color='#7a4f28'/>
+<stop offset='100%' stop-color='#5c3a1c'/>
+</linearGradient>
+</defs>
+<rect x='0' y='0' width='64' height='64' fill='url(#g)'/>
+<text x='32' y='39' font-family='Georgia, serif' font-size='20' font-weight='600' fill='#f9f5ee' text-anchor='middle' letter-spacing='0.5'>MK</text>
+</svg>

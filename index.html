@@ -4371,10 +4371,8 @@ document.querySelectorAll('.logo, .nav-kuhinje').forEach(el => {
   });
 });
 
-// Pri ucitavanju - ako URL ima #radovi, prikazi sekciju
-if (window.location.hash === '#galerija') {
-  showRadovi();
-}
+// (Provera '#galerija' u URL-u je pomerena na kraj skripte —
+// da bi sve što joj treba (RADOVI_SOURCES, discoverRadovi...) već postojalo.)
 
 // ════════════════════════════════════════════════════════════════
 // LIGHTBOX za radovi
@@ -4573,6 +4571,14 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') showPrev();
   if (e.key === 'ArrowRight') showNext();
 });
+
+// Pri učitavanju — ako URL ima #galerija (npr. stigli smo ovde linkom sa
+// druge stranice), odmah otvori Galeriju. Ovo je na kraju skripte da bi sve
+// što showRadovi()/discoverRadovi() koriste (RADOVI_SOURCES, radoviGrid...)
+// već bilo definisano u tom trenutku.
+if (window.location.hash === '#galerija') {
+  showRadovi();
+}
 </script>
 
 </body>

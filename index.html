@@ -4319,17 +4319,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // ════════════════════════════════════════════════════════════════
 // RADOVI - skrivena sekcija, pojavljuje se na klik
-// Slike se učitavaju istom prilikom (lenjo), NE odmah pri otvaranju sajta
+// Slike se učitavaju U POZADINI čim se stranica (i sporedni sadržaj) učita,
+// tako da su već spremne kad korisnik stvarno otvori Galeriju — bez čekanja.
 // ════════════════════════════════════════════════════════════════
 let radoviLoaded = false;
+
+function startRadoviBackgroundLoad() {
+  if (radoviLoaded) return;
+  radoviLoaded = true;
+  discoverRadovi();
+}
+
+// Pokreni tek kad je CELA stranica (slike, skripte...) gotova da se ne bi
+// otimalo o internet konekciju sa bitnijim sadržajem koji se prvo vidi.
+window.addEventListener('load', () => {
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startRadoviBackgroundLoad, { timeout: 3000 });
+  } else {
+    setTimeout(startRadoviBackgroundLoad, 1000);
+  }
+});
 
 function showRadovi() {
   document.body.classList.add('radovi-view');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  if (!radoviLoaded) {
-    radoviLoaded = true;
-    discoverRadovi();
-  }
+  // Sigurnosna mreža: ako je korisnik kliknuo pre nego što je pozadinsko
+  // učitavanje uopšte stiglo da krene, pokreni ga odmah.
+  startRadoviBackgroundLoad();
 }
 
 function hideRadovi() {
